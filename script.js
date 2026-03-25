@@ -1,3 +1,12 @@
+// ---- Service card expand ----
+function toggleService(btn) {
+  const card = btn.closest('.service-card');
+  const details = card.querySelector('.service-details');
+  const isExpanded = card.classList.contains('expanded');
+  card.classList.toggle('expanded', !isExpanded);
+  details.style.maxHeight = isExpanded ? null : details.scrollHeight + 'px';
+}
+
 // ---- Header scroll effect ----
 const header = document.getElementById('header');
 let lastScroll = 0;

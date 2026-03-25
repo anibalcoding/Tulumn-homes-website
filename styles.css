@@ -432,6 +432,9 @@ p { font-size: 1.05rem; color: var(--text-secondary); }
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
+  max-width: 960px;
+  margin: 0 auto;
+  align-items: start;
 }
 .service-card {
   background: var(--white);
@@ -482,34 +485,80 @@ p { font-size: 1.05rem; color: var(--text-secondary); }
   line-height: 1.7;
   margin-bottom: 20px;
 }
-.service-link {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--orange-brand);
+.service-expand-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--orange-brand);
+  background: none;
+  padding: 0;
   transition: gap 0.3s var(--ease-smooth);
 }
-.service-link:hover { gap: 12px; }
-.service-link svg { width: 16px; height: 16px; }
+.service-expand-btn:hover { gap: 10px; }
+.service-expand-btn svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s var(--ease-smooth);
+}
+.service-card.expanded .service-expand-btn svg { transform: rotate(180deg); }
+.service-card.expanded { border-color: var(--orange-brand); }
+.service-card.expanded::before { transform: scaleX(1); }
+
+.service-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.45s var(--ease-smooth), opacity 0.35s;
+  opacity: 0;
+}
+.service-card.expanded .service-details {
+  max-height: 500px;
+  opacity: 1;
+}
+.service-details ul {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--cream);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.service-details ul li {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.5;
+}
+.service-details ul li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--orange-brand);
+  flex-shrink: 0;
+  margin-top: 7px;
+}
 
 /* ============================================
    ABOUT / WHY CHOOSE
    ============================================ */
 .about {
-  padding: var(--section-pad) 0;
+  padding: clamp(48px, 6vw, 80px) 0;
   background: var(--white);
 }
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  gap: 52px;
   align-items: center;
 }
 .about-image {
   position: relative;
-  height: 520px;
+  height: 400px;
   background: var(--cream);
   border-radius: 12px;
   overflow: hidden;
@@ -539,11 +588,11 @@ p { font-size: 1.05rem; color: var(--text-secondary); }
   z-index: -1;
   opacity: 0.3;
 }
-.about-content h2 { margin-bottom: 20px; }
+.about-content h2 { margin-bottom: 14px; }
 .about-content > p {
-  font-size: 1.1rem;
-  margin-bottom: 36px;
-  line-height: 1.8;
+  font-size: 0.97rem;
+  margin-bottom: 14px;
+  line-height: 1.7;
 }
 .about-features {
   display: grid;
@@ -577,7 +626,7 @@ p { font-size: 1.05rem; color: var(--text-secondary); }
 
 /* Media / Press Preview Cards */
 .about-media {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 .about-media-label {
   font-size: 0.75rem;
@@ -1255,7 +1304,7 @@ p { font-size: 1.05rem; color: var(--text-secondary); }
 @media (max-width: 1024px) {
   .hero-content { grid-template-columns: 1fr; padding-top: 120px; }
   .hero-visual { display: none; }
-  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .services-grid { grid-template-columns: 1fr; }
   .about-grid { grid-template-columns: 1fr; gap: 40px; }
   .about-image { height: 360px; }
   .process-timeline { grid-template-columns: repeat(2, 1fr); }
