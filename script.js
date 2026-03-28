@@ -82,11 +82,20 @@ function selectLandOption(type) {
   }
 }
 
-// ---- Gallery tabs (visual only for now) ----
+// ---- Gallery tabs ----
 document.querySelectorAll('.gallery-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.gallery-tab').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
+
+    const filter = tab.getAttribute('data-filter');
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      if (filter === 'all' || item.getAttribute('data-category') === filter) {
+        item.style.display = '';
+      } else {
+        item.style.display = 'none';
+      }
+    });
   });
 });
 
@@ -110,6 +119,14 @@ function handleFormSubmit(e, formType) {
       e.target.reset();
     }, 3000);
   }, 1200);
+}
+
+// ---- Mobile gallery expand ----
+function toggleMobileGallery(el) {
+  const isOpen = el.classList.contains('open');
+  el.classList.toggle('open', !isOpen);
+  const expand = el.querySelector('.gallery-mobile-expand');
+  expand.style.maxHeight = isOpen ? null : expand.scrollHeight + 'px';
 }
 
 // ---- Smooth scroll for anchor links ----
