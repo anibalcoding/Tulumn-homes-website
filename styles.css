@@ -893,11 +893,7 @@ p { font-size: 1.05rem; color: var(--text-secondary); }
 }
 .gallery-header p { margin-top: 16px; font-size: 1.1rem; }
 .gallery-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 40px;
-  flex-wrap: wrap;
+  display: none;
 }
 .gallery-tab {
   padding: 10px 24px;
@@ -915,9 +911,7 @@ p { font-size: 1.05rem; color: var(--text-secondary); }
   border-color: var(--orange-brand);
 }
 .gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  display: none;
 }
 .gallery-item {
   position: relative;
@@ -967,11 +961,14 @@ p { font-size: 1.05rem; color: var(--text-secondary); }
 }
 
 /* Mobile gallery */
-.gallery-mobile { display: none; }
+.gallery-mobile {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
 .gallery-mobile-category {
   border-radius: 12px;
   overflow: hidden;
-  margin-bottom: 16px;
   cursor: pointer;
 }
 .gallery-mobile-preview {
@@ -983,6 +980,15 @@ p { font-size: 1.05rem; color: var(--text-secondary); }
   height: 100%;
   object-fit: cover;
   display: block;
+}
+.gallery-hover-img {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.gallery-mobile-category:hover .gallery-hover-img {
+  opacity: 1;
 }
 .gallery-mobile-label {
   position: absolute;
@@ -1008,10 +1014,10 @@ p { font-size: 1.05rem; color: var(--text-secondary); }
 .gallery-mobile-expand {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.45s ease;
+  transition: max-height 0.6s ease;
 }
 .gallery-mobile-category.open .gallery-mobile-expand {
-  max-height: 800px;
+  max-height: 4000px;
 }
 .gallery-mobile-grid {
   display: grid;
@@ -1021,9 +1027,17 @@ p { font-size: 1.05rem; color: var(--text-secondary); }
 }
 .gallery-mobile-grid img {
   width: 100%;
-  height: 160px;
+  height: 180px;
   object-fit: cover;
   display: block;
+}
+@media (max-width: 768px) {
+  .gallery-mobile {
+    display: block;
+  }
+  .gallery-mobile-category { margin-bottom: 16px; }
+  .gallery-mobile-preview { height: 220px; }
+  .gallery-mobile-grid img { height: 160px; }
 }
 
 /* ============================================
@@ -1411,7 +1425,6 @@ p { font-size: 1.05rem; color: var(--text-secondary); }
   .land-form-wrapper { padding: 28px 20px; }
   .form-grid { grid-template-columns: 1fr; }
   .gallery-tabs, .gallery-grid { display: none; }
-  .gallery-mobile { display: block; }
   .reviews-grid { grid-template-columns: 1fr; }
   .contact-form { padding: 28px 20px; }
   .footer-top { grid-template-columns: 1fr; gap: 32px; }
